@@ -205,14 +205,18 @@ angular.module('conFusion.controllers', [])
     };
 
     $scope.addComment = function() {
-      $scope.commentform.show();
+      $timeout(function() {
+        $scope.commentform.show();
+      }, 100);
+
     };
 
     $scope.doComment = function() {
+      $scope.comment.date = Date.now();
       $scope.dish.comments.push($scope.comment);
       $timeout(function() {
         $scope.closeComment();
-      }, 1000);
+      }, 100);
       //$scope.closePopover(); //no need to close it as it's already closed when clicked
     };
 
