@@ -73,7 +73,8 @@ angular.module('conFusion.controllers', [])
 })
 
 //.controller('MenuController', ['$scope', 'menuFactory', 'baseURL', function($scope, menuFactory, baseURL) {
-.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'dishes', 'baseURL', '$ionicListDelegate', function ($scope, menuFactory, favoriteFactory, dishes, baseURL, $ionicListDelegate) {
+//.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'dishes', 'baseURL', '$ionicListDelegate', function ($scope, menuFactory, favoriteFactory, dishes, baseURL, $ionicListDelegate) {
+.controller('MenuController', ['$scope', 'dishes', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPlatform', '$cordovaLocalNotification', '$cordovaToast', function ($scope, dishes, favoriteFactory, baseURL, $ionicListDelegate, $ionicPlatform, $cordovaLocalNotification, $cordovaToast) {
 
   $scope.baseURL = baseURL;
   $scope.tab = 1;
@@ -84,8 +85,30 @@ angular.module('conFusion.controllers', [])
 
   $scope.dishes = dishes;
 
+  // $ionicPlatform.ready(function () {
+  //             $cordovaLocalNotification.schedule({
+  //                 id: 1,
+  //                 title: "Added Favorite",
+  //                 text: 'any'
+  //             }).then(function () {
+  //                 console.log('Added Favorite ');
+  //             },
+  //             function () {
+  //                 console.log('Failed to add Notification ');
+  //             });
+  //
+  //             $cordovaToast
+  //               .show('Added Favorite ', 'long', 'center')
+  //               .then(function (success) {
+  //                   // success
+  //               }, function (error) {
+  //                   // error
+  //               });
+  //     });
+
     $scope.addFavorite = function (index) {
       console.log("index is " + index);
+
       favoriteFactory.addToFavorites(index);
       $ionicListDelegate.closeOptionButtons();
     };
@@ -241,11 +264,33 @@ angular.module('conFusion.controllers', [])
 
 }])
 
-  .controller('AboutController', ['$scope', 'corporateFactory', 'leaders', 'baseURL', function($scope, corporateFactory, leaders, baseURL) {
+//.controller('AboutController', ['$scope', 'corporateFactory', 'leaders', 'baseURL', function($scope, corporateFactory, leaders, baseURL) {
+.controller('AboutController', ['$scope', '$ionicPlatform', '$cordovaLocalNotification', '$cordovaToast', 'corporateFactory', 'leaders', 'baseURL', function($scope, $ionicPlatform, $cordovaLocalNotification, $cordovaToast,corporateFactory, leaders, baseURL) {
 
     $scope.baseURL = baseURL;
     $scope.leaders = leaders;
     console.log($scope.leaders);
+
+    $ionicPlatform.ready(function () {
+                $cordovaLocalNotification.schedule({
+                    id: 1,
+                    title: "Added Favorite",
+                    text: 'any'
+                }).then(function () {
+                    console.log('Added Favorite ');
+                },
+                function () {
+                    console.log('Failed to add Notification ');
+                });
+
+                $cordovaToast
+                  .show('Added Favorite ', 'long', 'center')
+                  .then(function (success) {
+                      // success
+                  }, function (error) {
+                      // error
+                  });
+        });
 
   }])
 
